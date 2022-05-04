@@ -3,6 +3,8 @@ package com.diplom.mypill;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.CalendarView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -20,6 +22,33 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
+    public void onClick(View view) {
+    }
+
+    public class Main2 {
+
+        public void onCreate(Bundle savedInstanceState) {
+            setContentView(R.layout.activity_main);
+
+            CalendarView calendarView = findViewById(R.id.calendarView);
+            calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+
+                @Override
+                public void onSelectedDayChange(CalendarView view, int year,
+                                                int month, int dayOfMonth) {
+                    int mYear = year;
+                    int mMonth = month;
+                    int mDay = dayOfMonth;
+                    String selectedDate = new StringBuilder().append(mMonth + 1)
+                            .append("-").append(mDay).append("-").append(mYear)
+                            .append(" ").toString();
+                    Toast.makeText(getApplicationContext(), selectedDate, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_registration)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
